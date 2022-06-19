@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_19_001534) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_19_194225) do
   create_table "games", force: :cascade do |t|
     t.integer "status_game"
     t.integer "winner"
@@ -23,9 +23,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_19_001534) do
   create_table "player_hands", force: :cascade do |t|
     t.integer "player_id"
     t.integer "game_id"
-    t.integer "card1"
-    t.integer "card2"
-    t.integer "card3"
+    t.integer "round_hand"
+    t.integer "truco"
+    t.integer "envido"
     t.integer "score_hand"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -40,6 +40,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_19_001534) do
     t.integer "team"
     t.string "email"
     t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "plyer_hand_cards", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

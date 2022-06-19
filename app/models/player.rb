@@ -1,5 +1,5 @@
 class Player < ApplicationRecord
-    has_many :player_hands, dependent: :
+    has_many :player_hands, dependent: :destroy
     has_many :games, through: :player_hands
 
     #Validations

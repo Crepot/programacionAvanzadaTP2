@@ -20,7 +20,7 @@ class Game < ApplicationRecord
             palo:3,
             effectiveness:14,
             id:1,
-            show:false
+            show:false #Para mostrar la carta o no en el front
         },
         {
             number:2,
