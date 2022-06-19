@@ -40,6 +40,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_19_194225) do
     t.integer "team"
     t.string "email"
     t.integer "score"
+    t.string "password_digest"
+    t.string "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

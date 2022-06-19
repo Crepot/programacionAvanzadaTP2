@@ -1,7 +1,7 @@
 class PlayerHand < ApplicationRecord
     belongs_to :game
     belongs_to :player
-    has_many :player_hand_cards, dependent: :destroy
+    has_many :plyerHandCards, dependent: :destroy
 
     def truco
         #Tengo que checkear que:

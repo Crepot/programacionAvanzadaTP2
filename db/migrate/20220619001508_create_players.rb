@@ -7,7 +7,8 @@ class CreatePlayers < ActiveRecord::Migration[7.0]
       t.integer :team # team otorgado al jugador "Ellos/Nosotros"
       t.string :email # Email del
       t.integer :score
-
+      t.string :password_digest
+      t.string :password
       t.timestamps
     end
   end

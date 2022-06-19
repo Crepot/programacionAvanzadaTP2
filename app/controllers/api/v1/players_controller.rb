@@ -1,6 +1,6 @@
 module Api
     module V1
-        class PlayerController < ApplicationController
+        class PlayersController < ApplicationController
             include ActionController::HttpAuthentication::Token
 
             before_action :authentication, only: [:show, :update, :destroy,:assigned]
@@ -9,7 +9,8 @@ module Api
 
             def index
                 @players = Player.all
-                return render status:200, json:{players: @players}
+
+                return render status:200, json:{player_id: @players.id}
             end
 
             def create

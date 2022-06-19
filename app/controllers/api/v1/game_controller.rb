@@ -13,6 +13,10 @@ module Api
 
             def create
                 #TODO:Ver que lógica lleva esto
+                @game = Game.new(game_params)
+                @game.save
+                return render status:200, json:{game: @game}
+
             end
 
             def show
