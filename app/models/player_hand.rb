@@ -1,0 +1,2 @@
+class PlayerHand < ApplicationRecord
+end
