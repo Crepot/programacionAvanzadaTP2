@@ -1,6 +1,8 @@
 class AuthenticationTokenService
-    HMAC_SECRET = ENV['hmac_secret']
-    ALGORITH = ENV['algorith']
+    # HMAC_SECRET = ENV['hmac_secret']
+    HMAC_SECRET = 'hmac_secret'
+    #ALGORITH = ENV['algorith']
+    ALGORITH = 'HS256'
     def self.call(player_id)
         payload = {player_id: player_id}
         JWT.encode payload, HMAC_SECRET, ALGORITH

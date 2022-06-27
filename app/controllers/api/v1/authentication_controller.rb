@@ -4,6 +4,7 @@ module Api
             before_action :setPlayer
             def create
                 token = AuthenticationTokenService.call(@player.id)
+                p "Este es el token que se crea#{token}"
                 return render status:200, json:{authToken: token, player_id:@player.id}
             end
             
@@ -30,7 +31,7 @@ module Api
                     render status:401, json:{messaje:"Invalid user or password"}
                     return false
                 end
-
+                p "ESTE ES EL PLAYER QUE VAMOS A AUTENTICAR #{@player}"
                 if !@player.authenticate(params[:password])
                     head :unauthorized
                     false

@@ -308,4 +308,46 @@ class Game < ApplicationRecord
         },
     ]
 
+    def repartir_cartas
+        p "reparto cartas"
+        p "players.length => #{players.length}"
+        if players.length === 2
+            
+            players.each do |player|
+                p "El player es => #{player}"
+                p "Esta es la mano del player => #{player.playerHands.last}"
+            end
+        else
+        
+        end
+
+
+
+    end
+
+    def mostrar
+        p "Estoy mostrando una carta"
+    end
+
+
+    def join player
+        if self.players.length <= 2
+
+            player.team = 2
+            self.curret_player = player.id
+            self.current_hand = player.id
+            self.status_game = 1
+            self.players.push(player)
+
+            hand = player.playerHands.last
+            hand.round_hand = 1
+
+            if hand.save
+                return true
+            else   
+                return false
+            end
+        end
+        return false
+    end
 end

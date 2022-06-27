@@ -5,6 +5,8 @@ module Api
 
             before_action :authentication
             before_action :set_player  
+            before_action :set_game, only: [:repartir,:join_game,:update,:show,:destroy,:mostrar_carta]  
+
             def index
                 #TODO:
                 @games = Game.all
@@ -14,8 +16,21 @@ module Api
             def create
                 #TODO:Ver que lógica lleva esto
                 @game = Game.new(game_params)
-                @game.save
-                return render status:200, json:{game: @game}
+                @player.team = 1;
+                !@game.players.push(@player)
+                if @game.save
+                    player_hand = @player.playerHands.last
+                    #debugger
+                    player_hand.round_hand = 1
+                    if player_hand.save
+                        render status:200, json:{game: @game}
+                    else
+                        render status:400, json:{messaje:player_hand.errors.details}
+                    end
+                else
+                        render status:400, json:{messaje:@game.errors.details}
+                end
+
 
             end
 
@@ -40,10 +55,46 @@ module Api
                 end
             end
 
+            def repartir
+                @game.repartir_cartas
+                if @game
+                    render status:200, json:{messaje: "se repartieron las cartas"}
+                else
+                    render status:400, json:{messaje:@game.errors.details}
+                end
+            end
+
+            def join_game
+                # TODO: Necesito que me pasen el team 2-> Ellos,1-> Nosotros
+                # TODO: En esta primera etapa lo hago para 2 players solamente --> se seteo el team 2 directamente
+               if @game.join @player
+                @player.playerHands
+                if @game.save
+                    render status:200, json:{game: @game}
+                else
+                    render status:400, json:{messaje:@game.errors.details}
+                end
+                else
+                    render status:400, json:{messaje:@game.errors.details}
+                end
+
+            end
+
+            def mostrar_carta
+                p "Esto es un post al mostrar carta"
+                @game.mostrar
+                debugger
+                #Acá es la lógica para mostrar la carta del player
+                #Verificar que el player es el current
+                #Verficar la ronda en la que tira la carta, esto es 1,2 o3
+                #Si es la primera solamente mostrarla
+                #Si es la segunda vuelta ver que carta es la que se jugo anteriormente y ver cuál gana, según eso dejo tirar
+                #Si la segunda es empate, tira el que es mano
+                #Checkear si gano la ronda el player que mostro la carta (Con esto me refiero a ver si ya gano 2 rondas)
+                #Si es la tercera vuelta verificar lo mismo que en la 2da
+            end
 
             private
-
-
             #Strong params
             def game_params
                 params.require(:game).permit(:winner,:curret_player,:current_hand)
@@ -59,7 +110,8 @@ module Api
             end
 
             def set_game
-                @game = Game.find_by(id:params[:id])
+                p "estoy en el set game"
+                @game = Game.find_by(id:params[:game_id])
                 if @game.nil?
                     return head :unauthorized
                  end

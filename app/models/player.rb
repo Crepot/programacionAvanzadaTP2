@@ -6,7 +6,7 @@ class Player < ApplicationRecord
     validates :name,:email, presence:true
 
     before_create :default_values 
-    enum team: {ellos:1 ,nosotros:1,ninguno:-1}
+    enum team: {ellos:2 ,nosotros:1,ninguno:-1}
 
     def default_values
         self.team = -1
