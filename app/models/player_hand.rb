@@ -1,7 +1,7 @@
 class PlayerHand < ApplicationRecord
     belongs_to :game
     belongs_to :player
-    has_many :plyerHandCards, dependent: :destroy
+    has_many :playerHandCards, dependent: :destroy
 
     enum truco: { vale4:3,retruco:2 ,truco:1 , no_truco:0}
     enum envido: { falta_envido:3,real_envido:2 ,envido:1 , no_envido:0}

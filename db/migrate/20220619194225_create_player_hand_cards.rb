@@ -1,6 +1,6 @@
-class CreatePlyerHandCards < ActiveRecord::Migration[7.0]
+class CreatePlayerHandCards < ActiveRecord::Migration[7.0]
   def change
-    create_table :plyer_hand_cards do |t|
+    create_table :player_hand_cards do |t|
       t.belongs_to :player_hand
 
       t.integer :number

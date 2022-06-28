@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PlyerHandCardTest < ActiveSupport::TestCase
+class PlayerHandCardTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

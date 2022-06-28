@@ -20,6 +20,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_19_194225) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "player_hand_cards", force: :cascade do |t|
+    t.integer "player_hand_id"
+    t.integer "number"
+    t.integer "palo"
+    t.integer "effectiveness"
+    t.boolean "show"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["player_hand_id"], name: "index_player_hand_cards_on_player_hand_id"
+  end
+
   create_table "player_hands", force: :cascade do |t|
     t.integer "player_id"
     t.integer "game_id"
@@ -44,17 +55,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_19_194225) do
     t.string "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "plyer_hand_cards", force: :cascade do |t|
-    t.integer "player_hand_id"
-    t.integer "number"
-    t.integer "palo"
-    t.integer "effectiveness"
-    t.boolean "show"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["player_hand_id"], name: "index_plyer_hand_cards_on_player_hand_id"
   end
 
 end
