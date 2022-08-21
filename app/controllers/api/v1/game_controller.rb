@@ -16,6 +16,11 @@ module Api
             def create
                 #TODO:Ver que lógica lleva esto
                 @game = Game.new(game_params)
+                #TODO: Creo que no hace falta asignar al player acá, lo puedo hacer desde el join_game
+                # Con esto me puedo ahorrarasignar el playerHand
+                if @player.games && @player.games.length > 0 && @player.games.last.status_game != "finalizado"
+                    return render status:400, json:{messaje:"#{@player.name} no puede comenzar un nuevo juego porque se encuentra en un juego en curso" }
+                end  
                 @player.team = 1;
                 !@game.players.push(@player)
                 if @game.save
@@ -65,8 +70,13 @@ module Api
             end
 
             def join_game
+                #Por cada jugador que se une al juego le creamos un playerHand
                 # TODO: Necesito que me pasen el team 2-> Ellos,1-> Nosotros
-                # TODO: En esta primera etapa lo hago para 2 players solamente --> se seteo el team 2 directamente
+                # TODO: En esta primera etapa lo hago para 2 players solamente --> le seteo el team 2 directamente
+                if @player.games && @player.games.length > 0 && @player.games.last.status_game != "finalizado"
+                    return render status:400, json:{messaje:"#{@player.name} no puede unir a un nuevo juego porque se encuentra en un juego en curso" }
+                end
+
                if @game.join @player
                 @player.playerHands
                 if @game.save
@@ -97,7 +107,7 @@ module Api
             private
             #Strong params
             def game_params
-                params.require(:game).permit(:winner,:curret_player,:current_hand)
+                params.require(:game).permit(:winner,:curret_player,:current_hand,:status_game)
             end
 
 

@@ -311,11 +311,23 @@ class Game < ApplicationRecord
     def repartir_cartas
         p "reparto cartas"
         p "players.length => #{players.length}"
-        if players.length === 2
-            
+        p "current player => #{self.curret_player}"
+        if players.length === 2 # || === 4 || === 6 => entonces se pueden repartir las cartas
             players.each do |player|
+                #Mezclo las cartas aleatoreamente
+                random_cards = CARDS.shuffle
+                #Me dejo la cantidad de cartas justas que necesito para repartir
+                random_cards = random_cards[0,players.length*3]
+
                 p "El player es => #{player}"
                 p "Esta es la mano del player => #{player.playerHands.last}"
+                
+                #Que pasa cuando las playerHands ya están creadas
+                hand_player = player.playerHands.last
+
+                p "Esta estas son las cartas de la mano => #{player.playerHands.last.playerHandCards.length}"
+                p "Estas son las random cards => #{random_cards}"
+
             end
         else
         
